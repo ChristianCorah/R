@@ -11,7 +11,7 @@ library(readr)
 library(effsize)
 library(parameters)
 library(effectsize)
-library(ggpubr)
+library(ggpubr) # Required Packages for Analysis
 
 # Independent sample T-test for "TOTAL SUCCESS SCORE AVERAGE BY POSTED WITHIN AN HOUR OF ANOTHER VIDEO?". 
 
