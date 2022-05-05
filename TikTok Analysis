@@ -1,0 +1,23 @@
+Tik_Tok_Data <- read_excel("Tik Tok Data.xlsx")
+
+library(dplyr)
+library(readr)
+library(effsize)
+
+# Independent sample T-test for "TOTAL SUCCESS SCORE AVERAGE BY POSTED WITHIN AN HOUR OF ANOTHER VIDEO?". 
+
+Within_Hour_DF <- Tik_Tok_Data %>%
+  filter(
+    Creator == "S",
+    `Same_Day_as_Other_Video?` == 'Y') %>% # Filtered to specific creator's videos and only videos posted on the same day as another for the most accurate comparison
+  transmute(
+    "TSS" = Total_Success_Score, 
+    "Within_1_Hour?" = as.factor(`Posted_Within_1_Hour_of_Another_Video?`))
+
+result <- t.test(
+  TSS ~ `Within_1_Hour?`,
+  var.equal = TRUE,
+  data = Within_Hour_DF)
+result
+
+cohen.d(TSS ~ `Within_1_Hour?`, data = Within_Hour_DF) # Effect size for practical significance as well as statistical
